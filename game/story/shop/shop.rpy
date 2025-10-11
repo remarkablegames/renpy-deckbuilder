@@ -18,7 +18,8 @@ label shop:
             python:
                 config.menu_include_disabled = False
                 money -= cost_card_buy
-            call screen card_add
+                cards = Card.generate(player.shop_cards)
+            call screen card_add(cards)
 
         "Upgrade a card (-$[cost_card_upgrade])
         {tooltip}Upgrade 1 card in your deck ([player.shop_cards] choices, {i}nonrefundable{/i})" if money >= cost_card_upgrade:
@@ -60,7 +61,7 @@ label shop:
             jump battle
 
 
-screen card_add():
+screen card_add(cards):
 
     frame:
         modal True
@@ -75,17 +76,18 @@ screen card_add():
         hbox:
             spacing 25
 
-            for card in Card.generate(player.shop_cards):
+            for card in cards:
                 button:
-                    action [Function(deck.cards.append, card), Jump("shop")]
+                    action [
+                        Function(deck.cards.append, card),
+                        Queue("audio", "sound/draw.ogg"),
+                        Jump("shop"),
+                    ]
+                    hover_background colors.white
                     use card_frame(card)
 
         null height 25
-
-        frame:
-            xalign 0.5
-            textbutton "Pass":
-                action Jump("shop")
+        use shop_return
 
 
 screen card_upgrade():
@@ -105,15 +107,16 @@ screen card_upgrade():
 
             for card in deck.get_cards(player.shop_cards, upgrade_card_type):
                 button:
-                    action [Function(card.upgrade, upgrade_card_type, upgrade_card_value), Jump("shop")]
+                    action [
+                        Function(card.upgrade, upgrade_card_type, upgrade_card_value),
+                        Queue("audio", "sound/draw.ogg"),
+                        Jump("shop"),
+                    ]
+                    hover_background colors.white
                     use card_frame(card)
 
         null height 25
-
-        frame:
-            xalign 0.5
-            textbutton "Pass":
-                action Jump("shop")
+        use shop_return
 
 
 screen card_remove():
@@ -133,12 +136,21 @@ screen card_remove():
 
                 for card in deck.cards:
                     button:
-                        action [Function(deck.cards.remove, card), Jump("shop")]
+                        action [
+                            Function(deck.cards.remove, card),
+                            Queue("audio", "sound/draw.ogg"),
+                            Jump("shop"),
+                        ]
+                        hover_background colors.white
                         use card_frame(card)
 
         null height 50
+        use shop_return
 
-        frame:
-            xalign 0.5
-            textbutton "Pass":
-                action Jump("shop")
+
+screen shop_return():
+
+    frame:
+        xalign 0.5
+        textbutton "Pass":
+            action Jump("shop")
