@@ -26,7 +26,7 @@ label shop:
             python:
                 config.menu_include_disabled = False
                 money -= cost_card_upgrade
-                upgrade_card_type = renpy.random.choice(
+                card_type = renpy.random.choice(
                     ["all"] * 1 +
                     ["attack"] * 6 +
                     ["cost"] * 1 +
@@ -37,8 +37,9 @@ label shop:
                     ["times"] * 1 +
                     []
                 )
-                upgrade_card_value = renpy.random.randint(1, 3)
-            call screen card_upgrade
+                card_value = renpy.random.randint(1, 3)
+                cards = deck.get_cards(player.shop_cards, card_type)
+            call screen card_upgrade(cards, card_type, card_value)
 
         "Remove a card (-$[cost_card_remove])
         {tooltip}Remove 1 card from your deck ({i}nonrefundable{/i})" if money >= cost_card_remove:
@@ -90,7 +91,7 @@ screen card_add(cards):
         use shop_return
 
 
-screen card_upgrade():
+screen card_upgrade(cards, card_type, card_value):
 
     frame:
         modal True
@@ -98,17 +99,17 @@ screen card_upgrade():
         xalign 0.5 yalign 0.5
         has vbox
 
-        text Card.label_upgrade(upgrade_card_type, upgrade_card_value)
+        text Card.label_upgrade(card_type, card_value)
 
         null height 25
 
         hbox:
             spacing 25
 
-            for card in deck.get_cards(player.shop_cards, upgrade_card_type):
+            for card in cards:
                 button:
                     action [
-                        Function(card.upgrade, upgrade_card_type, upgrade_card_value),
+                        Function(card.upgrade, card_type, card_value),
                         Queue("audio", "sound/draw.ogg"),
                         Jump("shop"),
                     ]
