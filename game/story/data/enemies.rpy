@@ -48,7 +48,7 @@ init python:
             """
             Get enemy by id.
             """
-            return find_by_id(self.enemies, enemy_id)
+            return find(self.enemies, {"id": enemy_id})
 
         def index(self, enemy: RPGCharacter) -> int:
             """

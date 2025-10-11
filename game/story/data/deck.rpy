@@ -21,7 +21,7 @@ init python:
             """
             Get card by id.
             """
-            return find_by_id(self.cards, card_id)
+            return find(self.cards, {"id": card_id})
 
         def get_cards(self, count: int, upgrade_card_type="") -> Card:
             """

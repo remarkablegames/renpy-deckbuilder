@@ -1,3 +1,8 @@
 init python:
-    def find_by_id(items: list, item_id: str):
-        return next((item for item in items if item.id == item_id), None)
+    def find(collection: list, predicate: dict):
+        """
+        Iterate over elements of collection, returning the first element predicate returns truthy for.
+        """
+        key = next(iter(predicate))
+        value = next(iter(predicate.values()))
+        return next((item for item in collection if getattr(item, key) == value), None)
