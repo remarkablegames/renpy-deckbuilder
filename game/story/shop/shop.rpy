@@ -6,24 +6,25 @@ label shop:
         config.menu_include_disabled = True
         cost_base = max(wins, 3)
         cost_reward = cost_base
-        cost_buy_card = cost_base
-        cost_upgrade_card = cost_base * 2
-        cost_remove_card = cost_base * 3
+        cost_card_buy = cost_base
+        cost_card_upgrade = cost_base * 2
+        cost_card_remove = cost_base * 3
 
     menu:
         "What do you want to do?"
 
-        "Buy a card (-$[cost_buy_card])
-        {tooltip}Add 1 card to your deck" if money >= cost_buy_card:
-            $ money -= cost_buy_card
-            $ config.menu_include_disabled = False
-            call screen add_card
-
-        "Upgrade a card (-$[cost_upgrade_card])
-        {tooltip}Upgrade 1 card in your deck" if money >= cost_upgrade_card:
+        "Buy a card (-$[cost_card_buy])
+        {tooltip}Add 1 card to your deck" if money >= cost_card_buy:
             python:
-                money -= cost_upgrade_card
                 config.menu_include_disabled = False
+                money -= cost_card_buy
+            call screen card_add
+
+        "Upgrade a card (-$[cost_card_upgrade])
+        {tooltip}Upgrade 1 card in your deck" if money >= cost_card_upgrade:
+            python:
+                config.menu_include_disabled = False
+                money -= cost_card_upgrade
                 upgrade_card_type = renpy.random.choice(
                     ["all"] * 1 +
                     ["attack"] * 6 +
@@ -36,19 +37,21 @@ label shop:
                     []
                 )
                 upgrade_card_value = renpy.random.randint(1, 3)
-            call screen upgrade_card
+            call screen card_upgrade
 
-        "Remove a card (-$[cost_remove_card])
-        {tooltip}Remove 1 card from your deck" if money >= cost_remove_card:
-            $ money -= cost_remove_card
-            $ config.menu_include_disabled = False
-            call screen remove_card
+        "Remove a card (-$[cost_card_remove])
+        {tooltip}Remove 1 card from your deck" if money >= cost_card_remove:
+            python:
+                config.menu_include_disabled = False
+                money -= cost_card_remove
+            call screen card_remove
 
         "Get reward (-$[cost_reward])
         {tooltip}Upgrade a stat" if money >= cost_reward:
-            $ money -= cost_reward
-            $ rewards += 1
-            $ config.menu_include_disabled = False
+            python:
+                config.menu_include_disabled = False
+                money -= cost_reward
+                rewards += 1
             jump reward
 
         "Battle":
@@ -57,7 +60,7 @@ label shop:
             jump battle
 
 
-screen add_card():
+screen card_add():
 
     frame:
         modal True
@@ -85,7 +88,7 @@ screen add_card():
                 action Jump("shop")
 
 
-screen upgrade_card():
+screen card_upgrade():
 
     frame:
         modal True
@@ -113,7 +116,7 @@ screen upgrade_card():
                 action Jump("shop")
 
 
-screen remove_card():
+screen card_remove():
 
     frame:
         modal True
