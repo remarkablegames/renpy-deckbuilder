@@ -47,7 +47,7 @@ init python:
     def onhovered(draggable) -> None:
         draggable.top()
 
-screen player_hand:
+screen player_hand():
     draggroup:
         for enemy in enemies.enemies:
             if enemy.health > 0:
