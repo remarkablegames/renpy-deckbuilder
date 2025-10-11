@@ -2,22 +2,27 @@ label shop:
 
     show screen player_deck(0, 1.0)
 
-    $ config.menu_include_disabled = True
-    $ reward_cost = max(wins, 3)
+    python:
+        config.menu_include_disabled = True
+        cost_base = max(wins, 3)
+        cost_reward = cost_base
+        cost_buy_card = cost_base
+        cost_upgrade_card = cost_base * 2
+        cost_remove_card = cost_base * 3
 
     menu:
         "What do you want to do?"
 
-        "Buy a card (-$[reward_cost])
-        {tooltip}Add 1 card to your deck" if money >= reward_cost:
-            $ money -= reward_cost
+        "Buy a card (-$[cost_buy_card])
+        {tooltip}Add 1 card to your deck" if money >= cost_buy_card:
+            $ money -= cost_buy_card
             $ config.menu_include_disabled = False
             call screen add_card
 
-        "Upgrade a card (-$[reward_cost * 2])
-        {tooltip}Upgrade 1 card in your deck" if money >= reward_cost * 2:
+        "Upgrade a card (-$[cost_upgrade_card])
+        {tooltip}Upgrade 1 card in your deck" if money >= cost_upgrade_card:
             python:
-                money -= reward_cost * 2
+                money -= cost_upgrade_card
                 config.menu_include_disabled = False
                 upgrade_card_type = renpy.random.choice(
                     ["all"] * 1 +
@@ -33,15 +38,15 @@ label shop:
                 upgrade_card_value = renpy.random.randint(1, 3)
             call screen upgrade_card
 
-        "Remove a card (-$[reward_cost * 3])
-        {tooltip}Remove 1 card from your deck" if money >= reward_cost * 3:
-            $ money -= reward_cost * 3
+        "Remove a card (-$[cost_remove_card])
+        {tooltip}Remove 1 card from your deck" if money >= cost_remove_card:
+            $ money -= cost_remove_card
             $ config.menu_include_disabled = False
             call screen remove_card
 
-        "Get reward (-$[reward_cost])
-        {tooltip}Upgrade a stat" if money >= reward_cost:
-            $ money -= reward_cost
+        "Get reward (-$[cost_reward])
+        {tooltip}Upgrade a stat" if money >= cost_reward:
+            $ money -= cost_reward
             $ rewards += 1
             $ config.menu_include_disabled = False
             jump reward

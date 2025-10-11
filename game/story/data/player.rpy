@@ -1,3 +1,9 @@
+default player = Player(
+    health=15,
+    energy=3,
+)
+
+
 init python:
     class Player(RPGCharacter):
         def __init__(self, **kwargs) -> None:
@@ -10,8 +16,3 @@ init python:
             deck.discard_hand()
             renpy.hide_screen("player_end_turn")
             renpy.jump("enemy_turn")
-
-default player = Player(
-    health=15,
-    energy=3,
-)
