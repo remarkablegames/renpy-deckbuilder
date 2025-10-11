@@ -51,7 +51,8 @@ label shop:
             hide screen player_deck
             jump battle
 
-screen add_card:
+
+screen add_card():
 
     frame:
         modal True
@@ -78,7 +79,8 @@ screen add_card:
             textbutton "Pass":
                 action Jump("shop")
 
-screen upgrade_card:
+
+screen upgrade_card():
 
     frame:
         modal True
@@ -105,7 +107,8 @@ screen upgrade_card:
             textbutton "Pass":
                 action Jump("shop")
 
-screen remove_card:
+
+screen remove_card():
 
     frame:
         modal True
