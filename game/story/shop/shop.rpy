@@ -14,14 +14,14 @@ label shop:
         "What do you want to do?"
 
         "Buy a card (-$[cost_card_buy])
-        {tooltip}Add 1 card to your deck" if money >= cost_card_buy:
+        {tooltip}Add 1 card to your deck ([player.shop_cards] choices, {i}nonrefundable{/i})" if money >= cost_card_buy:
             python:
                 config.menu_include_disabled = False
                 money -= cost_card_buy
             call screen card_add
 
         "Upgrade a card (-$[cost_card_upgrade])
-        {tooltip}Upgrade 1 card in your deck" if money >= cost_card_upgrade:
+        {tooltip}Upgrade 1 card in your deck ([player.shop_cards] choices, {i}nonrefundable{/i})" if money >= cost_card_upgrade:
             python:
                 config.menu_include_disabled = False
                 money -= cost_card_upgrade
@@ -40,14 +40,14 @@ label shop:
             call screen card_upgrade
 
         "Remove a card (-$[cost_card_remove])
-        {tooltip}Remove 1 card from your deck" if money >= cost_card_remove:
+        {tooltip}Remove 1 card from your deck ({i}nonrefundable{/i})" if money >= cost_card_remove:
             python:
                 config.menu_include_disabled = False
                 money -= cost_card_remove
             call screen card_remove
 
         "Get reward (-$[cost_reward])
-        {tooltip}Upgrade a stat" if money >= cost_reward:
+        {tooltip}Upgrade a stat ({i}nonrefundable{/i})" if money >= cost_reward:
             python:
                 config.menu_include_disabled = False
                 money -= cost_reward
@@ -75,7 +75,7 @@ screen card_add():
         hbox:
             spacing 25
 
-            for card in Card.generate(3):
+            for card in Card.generate(player.shop_cards):
                 button:
                     action [Function(deck.cards.append, card), Jump("shop")]
                     use card_frame(card)
@@ -103,7 +103,7 @@ screen card_upgrade():
         hbox:
             spacing 25
 
-            for card in deck.get_cards(3, upgrade_card_type):
+            for card in deck.get_cards(player.shop_cards, upgrade_card_type):
                 button:
                     action [Function(card.upgrade, upgrade_card_type, upgrade_card_value), Jump("shop")]
                     use card_frame(card)
