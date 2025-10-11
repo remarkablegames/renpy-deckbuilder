@@ -6,10 +6,7 @@ screen stat(name, current, max):
 screen player_stats:
     vbox:
         yalign 1.0
-        frame:
-            padding (10, 10)
-            textbutton f"{'View Draw Pile' if battle else 'View Deck'}":
-                action Show("draw_pile")
+        use player_deck(0, 0)
         frame:
             vbox:
                 use stat("Health", player.health, player.health_max)
@@ -23,6 +20,13 @@ screen player_end_turn:
         padding (10, 10) xalign 1.0 yalign 1.0
         textbutton "End Turn":
             action Function(player.end_turn)
+
+screen player_deck(xalign_pos, yalign_pos):
+    frame:
+        padding (10, 10)
+        textbutton ("View Draw Pile" if battle else "View Deck"):
+            action Show("draw_pile")
+        xalign xalign_pos yalign yalign_pos
 
 screen tooltip:
     $ tooltip = GetTooltip()

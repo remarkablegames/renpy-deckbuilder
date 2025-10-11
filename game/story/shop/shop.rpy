@@ -1,5 +1,7 @@
 label shop:
 
+    show screen player_deck(0, 1.0)
+
     $ config.menu_include_disabled = True
     $ reward_cost = max(wins, 3)
 
@@ -46,6 +48,7 @@ label shop:
 
         "Battle":
             $ config.menu_include_disabled = False
+            hide screen player_deck
             jump battle
 
 screen add_card:
