@@ -12,5 +12,6 @@ init python:
     config.custom_text_tags["tooltip"] = tooltip_custom_text_tag
 
 
-# To customize enemies: `game/story/data/enemies.rpy`
-# To customize levels: `game/story/data/levels.json`
+# Edit enemies: `game/story/data/enemies.rpy`
+# Edit images: `game/story/utils/images.rpy`
+# Edit levels: `game/story/data/levels.json`

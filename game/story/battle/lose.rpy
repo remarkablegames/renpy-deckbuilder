@@ -12,6 +12,7 @@ label lose:
 
     "You have been defeated."
 
+    scene black onlayer enemies
     scene black with fade
 
     jump end
