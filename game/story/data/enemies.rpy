@@ -34,7 +34,7 @@ init python:
             for index, enemy in enumerate(self.enemies):
                 xalign_position = self.xalign_position(enemy)
                 renpy.show_screen(f"enemy_stats{index}", enemy, xalign_position)
-                renpy.show(enemy.image, at_list=[position(xalign_position)], layer=LAYER_ENEMIES)
+                renpy.show(enemy.image(), at_list=[position(xalign_position)], layer=LAYER_ENEMIES)
 
             renpy.with_statement(dissolve)
 
@@ -43,7 +43,7 @@ init python:
             """
             Hide enemy.
             """
-            renpy.hide(enemy.image, layer=LAYER_ENEMIES)
+            renpy.hide(enemy.image(), layer=LAYER_ENEMIES)
             renpy.hide_screen(f"enemy_stats{enemies.index(enemy)}")
             renpy.transition(dissolve, layer=LAYER_ENEMIES)
 
@@ -130,22 +130,51 @@ init python:
             Enemy turn.
             """
             for enemy in self.alive():
+                has_actions = bool(enemy.actions)
+
                 if enemy.stunned:
-                    narrator(f"{enemy.name} is stunned!")
+                    enemy.say()
+                    if has_actions:
+                        enemy.actions.append(enemy.actions.pop(0))
+                    renpy.show(enemy.image(), layer=LAYER_ENEMIES)
                     continue
 
-                enemy.turn_rng()
+                # generate action
+                if not has_actions:
+                    if enemy.health < enemy.health_max and renpy.random.random() < 0.5:
+                        heal = renpy.random.randint(enemy.heal_min, enemy.heal_max)
+                        enemy.actions.append({
+                            "say": f"{enemy.name} healed {heal} health.",
+                            "heal": heal,
+                        })
 
-                if enemy.heal_value and enemy.health < enemy.health_max and renpy.random.random() < 0.5:
-                    narrator(f"{enemy.name} healed {enemy.heal_value} health.")
-                    enemy.heal(enemy.heal_value)
-                else:
-                    narrator(f"{enemy.name} dealt {enemy.attack} damage to you.")
+                    else:
+                        attack = round(renpy.random.randint(enemy.attack_min, enemy.attack_max) * enemy.attack_multiplier)
+                        enemy.actions.append({
+                            "say": f"{enemy.name} dealt {attack} damage to you.",
+                            "attack": attack,
+                        })
+
+
+                enemy.say()
+                action = enemy.actions.pop(0)
+
+                attack = action.get("attack")
+                if attack:
                     renpy.with_statement(vpunch)
-                    player.hurt(enemy.attack)
+                    player.hurt(attack)
 
                     if player.health <= 0:
                         renpy.jump("lose")
+
+                heal = action.get("heal")
+                if heal:
+                    enemy.recover(heal)
+
+                if has_actions:
+                    enemy.actions.append(action)
+
+                renpy.show(enemy.image(), layer=LAYER_ENEMIES)
 
             self.end_turn()
 

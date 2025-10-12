@@ -11,7 +11,7 @@ label player_hand:
 
     python:
         for enemy in enemies.enemies:
-            if renpy.showing(enemy.image, layer=LAYER_ENEMIES) and enemy.health <= 0:
+            if renpy.showing(enemy.image(), layer=LAYER_ENEMIES) and enemy.health <= 0:
                 enemies.hide(enemy)
 
     if enemies.dead():
@@ -33,7 +33,7 @@ screen player_hand():
                     draggable False
                     droppable True
                     idle_child Solid((0, 0, 0, 0), xsize=enemy.width, ysize=enemy.height)
-                    selected_idle_child f"enemies/{enemy.image} hover.png"
+                    selected_idle_child enemy.image("hover")
                     xalign enemies.xalign_position(enemy)
                     yalign Enemies.YALIGN
 
