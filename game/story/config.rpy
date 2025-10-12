@@ -3,6 +3,9 @@ define config.rollback_enabled = False
 
 
 init python:
+    LAYER_ENEMIES = "enemies"
+    renpy.add_layer(LAYER_ENEMIES, below="screens")
+
     def tooltip_custom_text_tag(tag, argument):
         return [(renpy.TEXT_TAG, "tooltip")]
 

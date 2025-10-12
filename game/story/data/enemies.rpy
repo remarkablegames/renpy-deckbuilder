@@ -34,7 +34,7 @@ init python:
             for index, enemy in enumerate(self.enemies):
                 xalign_position = self.xalign_position(enemy)
                 renpy.show_screen(f"enemy_stats{index}", enemy, xalign_position)
-                renpy.show(enemy.image, at_list=[position(xalign_position)])
+                renpy.show(enemy.image, at_list=[position(xalign_position)], layer=LAYER_ENEMIES)
 
             renpy.with_statement(dissolve)
 
@@ -43,9 +43,9 @@ init python:
             """
             Hide enemy.
             """
-            renpy.hide(enemy.image)
-            renpy.with_statement(dissolve)
+            renpy.hide(enemy.image, layer=LAYER_ENEMIES)
             renpy.hide_screen(f"enemy_stats{enemies.index(enemy)}")
+            renpy.transition(dissolve, layer=LAYER_ENEMIES)
 
 
         def get(self, enemy_id: str) -> RPGCharacter:
