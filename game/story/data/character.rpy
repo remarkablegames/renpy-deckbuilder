@@ -1,6 +1,7 @@
 init python:
     from uuid import uuid4
 
+
     class RPGCharacter():
         def __init__(self, **kwargs) -> None:
             self.id = str(uuid4())
@@ -29,6 +30,7 @@ init python:
 
             self.stunned = False
 
+
         def turn_rng(self) -> None:
             """
             Generate random numbers for turn.
@@ -36,12 +38,14 @@ init python:
             self.attack = round(renpy.random.randint(self.attack_min, self.attack_max) * self.attack_multiplier)
             self.heal_value = renpy.random.randint(self.heal_min, self.heal_max)
 
+
         def hurt(self, value: int) -> None:
             """
             Attack character.
             """
             renpy.sound.queue("sound/punch.ogg", relative_volume=0.5)
             self.health -= value
+
 
         def heal(self, value: int, overheal=False) -> None:
             """

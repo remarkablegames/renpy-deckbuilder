@@ -4,11 +4,21 @@
         "enemies": [
             {
                 "name": "Boy",
+                "image": "boy",
                 "health": 5,
-                "attack_min": 1,
-                "attack_max": 2,
-                "heal_min": 1,
-                "heal_max": 2
+                "actions": [
+                    {
+                        "say": "{name} is thinking..."
+                    },
+                    {
+                        "say": "{name} dealt 1 damage to you.",
+                        "attack": 1
+                    },
+                    {
+                        "say": "{name} healed 1 health.",
+                        "heal": 1
+                    }
+                ]
             },
             {
                 "name": "Girl",

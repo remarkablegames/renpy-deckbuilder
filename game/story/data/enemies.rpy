@@ -110,6 +110,18 @@ init python:
                 elif index == 3:
                     xalign_position = 0.95
 
+            elif count == 5:
+                if index == 0:
+                    xalign_position = 0
+                elif index == 1:
+                    xalign_position = 0.25
+                elif index == 2:
+                    xalign_position = 0.5
+                elif index == 3:
+                    xalign_position = 0.75
+                elif index == 4:
+                    xalign_position = 1.0
+
             return xalign_position
 
 

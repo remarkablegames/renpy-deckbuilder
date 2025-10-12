@@ -29,12 +29,15 @@ init python:
             names = Enemies.NAMES.copy()
             random = renpy.random.random()
 
-            if self.level > 6 and random < 0.3:
+            enemies_count = 1
+            if self.level > 13 and random < 0.1:
+                enemies_count = 5
+            if self.level > 8 and random < 0.2:
+                enemies_count = 4
+            elif self.level > 5 and random < 0.3:
                 enemies_count = 3
-            elif self.level > 3 and random < 0.6:
+            elif self.level > 3 and random < 0.5:
                 enemies_count = 2
-            else:
-                enemies_count = 1
 
             while enemies_count > 0:
                 enemy_name = renpy.random.choice(names)
