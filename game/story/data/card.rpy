@@ -1,52 +1,101 @@
 init python:
     from uuid import uuid4
 
+
     class Card:
+        label_description_yalign = 0.5
+        label_name_ypos = 5
         width = 250
         height = 350
         offset = 80
+
 
         def __init__(self, **kwargs) -> None:
             self.id = str(uuid4())
             self.cost = kwargs.get("cost", 0)
             self.action = kwargs.get("action", {})
             self.value = kwargs.get("value", 0)
-            self.image = "card.png"
+
+            image = kwargs.get("image", "card")
+            self.image = f"cards/{image}.png"
+            self.name = image.capitalize()
+
+            if renpy.variant("mobile") or renpy.variant("touch"):
+                self.label_description_ypos = 0.5
+
+
+        def label_size(self, label: str) -> str:
+            """
+            Get label size.
+            """
+            size = 1.0
+            length = len(label)
+
+            if length < 5:
+                size = 0.95
+            elif length < 15:
+                size = 0.9
+            elif length < 25:
+                size = 0.85
+            elif length < 35:
+                size = 0.8
+            else:
+                size = 0.75
+
+            if renpy.variant("mobile") or renpy.variant("touch"):
+                size -= 0.15
+
+            return f"{{size=*{size}}}" if not size == 1.0 else ""
+
+
+        def label_name(self) -> str:
+            """
+            Name label.
+            """
+            return self.label_size(self.name) + "{color=[colors.label]}{b}{k=-2}" + self.name
+
 
         def label_cost(self) -> str:
             """
             Cost label.
             """
-            return emojis.get(self.cost)
+            return self.label_size(str(self.cost)) + emojis.get(self.cost)
+
 
         def label_description(self) -> str:
             """
             Description label.
             """
             label = ""
-            color = "{color=[colors.black]}"
+            color = "{color=[colors.label]}"
 
             for action, data in self.action.items():
+                value = data["value"]
+
+                if not value:
+                    continue
+
                 label += action.capitalize()
-                label += f" {data['value']}"
+                label += f" {value}"
+
                 if data.get("times", 1) > 1:
                     label += f" ×{data.get('times')}"
+
                 if data.get("stun"):
                     label += " Stun"
+
                 if data.get("all"):
                     label += " All"
+
+                if action == "turns":
+                    label += " once per battle"
+
                 label += "\n"
 
             label = label.rstrip('\n')
 
-            if len(label) < 15:
-                size = "{size=*0.9}"
-            elif len(label) < 25:
-                size = "{size=*0.85}"
-            else:
-                size = "{size=*0.8}"
+            return self.label_size(label) + color + label
 
-            return size + color + label
 
         @staticmethod
         def label_upgrade(action: str, value=1) -> str:
@@ -54,22 +103,23 @@ init python:
             Upgrade label.
             """
             if action == "all":
-                return f"Select a card to apply effects to {{b}}all{{/b}} enemies:"
+                return f"Select a card to apply effects to {{b}}{{color=[colors.note]}}all{{/color}}{{/b}} enemies:"
             elif action == "cost":
-                return f"Select a card to decrease {{b}}cost{{/b}} by {emojis.get(1)}:"
+                return f"Select a card to decrease {{b}}{{color=[colors.note]}}cost{{/color}}{{/b}} by {emojis.get(1)}:"
             elif action == "stun":
-                return f"Select a card to {{b}}stun{{/b}} an enemy:"
+                return f"Select a card to {{b}}{{color=[colors.note]}}stun{{/color}}{{/b}} an enemy:"
             elif action == "times":
-                return f"Select a card to increase action by 1 {{b}}time{{/b}}:"
+                return f"Select a card to increase action by 1 {{b}}{{color=[colors.note]}}time{{/color}}{{/b}}:"
             else:
-                return f"Select a card to increase {{b}}{action}{{/b}} by {{b}}{value}{{/b}}:"
+                return f"Select a card to increase {{b}}{{color=[colors.note]}}{action}{{/color}}{{/b}} by {{b}}{value}{{/b}}:"
+
 
         def upgrade(self, action: str, value=1) -> None:
             """
             Upgrade card.
             """
             if action in ["all", "stun"]:
-                self.action["attack"][action] = 1
+                self.action["attack"][action] = True
             elif action == "cost" and self.cost > 0:
                 self.cost -= 1
             elif action == "times":
@@ -82,6 +132,7 @@ init python:
                 else:
                     self.action[action] = {"value": value}
 
+
         def get_xpos(self) -> int:
             """
             Calculate x-position.
@@ -91,17 +142,20 @@ init python:
             x += deck.hand.index(self) * self.offset
             return int(x)
 
+
         def get_ypos(self) -> int:
             """
             Calculate y-position.
             """
             return config.screen_height - self.height
 
-        def get_pos(self) -> int:
+
+        def get_pos(self):
             """
             Calculate xy-position.
             """
             return self.get_xpos(), self.get_ypos()
+
 
         def use(self, target) -> None:
             """
@@ -109,8 +163,6 @@ init python:
             """
             if player.energy < self.cost:
                 return
-
-            deck.discard_card(self)
 
             player.energy -= self.cost
             is_enemy = target != player
@@ -144,6 +196,9 @@ init python:
                             renpy.show(target.image, at_list=[shake])
                         else:
                             renpy.invoke_in_thread(renpy.with_statement, vpunch)
+
+            deck.discard_card(self)
+
 
         @staticmethod
         def generate(count=1) -> list:

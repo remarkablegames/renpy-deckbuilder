@@ -94,11 +94,23 @@ screen draw_pile():
                 action Hide("draw_pile")
 
 
-screen card_frame(card):
+screen card_frame(card, draggable=None):
     frame:
         background Frame(card.image)
+        label card.label_name():
+            xalign 0.5
+            ypos card.label_name_ypos
         label card.label_cost()
         label card.label_description():
             xalign 0.5
-            yalign 0.5
+            yalign card.label_description_yalign
+            padding (5, 0)
         xysize card.width, card.height
+
+        if draggable:
+            mousearea:
+                area (0, 0, card.offset, card.height)
+                hovered [
+                    Queue("sound", "ui/mouserelease1.ogg"),
+                    Function(onhovered, draggable),
+                ]
