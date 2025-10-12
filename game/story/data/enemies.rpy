@@ -1,3 +1,6 @@
+default enemies = Enemies()
+
+
 init python:
     class Enemies:
         # Names that are mapped to their respective images.
@@ -7,9 +10,11 @@ init python:
         # Enemy yalign position in battle.
         YALIGN = 1.0
 
+
         def __init__(self) -> None:
             self.enemies = []
             self.count = 0
+
 
         def generate(self, enemies: list) -> None:
             """
@@ -20,6 +25,7 @@ init python:
 
             for enemy in enemies:
                 self.enemies.append(RPGCharacter(**enemy))
+
 
         def show(self) -> None:
             """
@@ -32,6 +38,7 @@ init python:
 
             renpy.with_statement(dissolve)
 
+
         def hide(self, enemy: RPGCharacter) -> None:
             """
             Hide enemy.
@@ -40,11 +47,13 @@ init python:
             renpy.with_statement(dissolve)
             renpy.hide_screen(f"enemy_stats{enemies.index(enemy)}")
 
+
         def get(self, enemy_id: str) -> RPGCharacter:
             """
             Get enemy by id.
             """
             return find(self.enemies, {"id": enemy_id})
+
 
         def index(self, enemy: RPGCharacter) -> int:
             """
@@ -52,17 +61,20 @@ init python:
             """
             return self.enemies.index(enemy)
 
+
         def alive(self) -> list:
             """
             Get alive enemies.
             """
             return list(filter(lambda enemy: enemy.health > 0, self.enemies))
 
+
         def dead(self) -> bool:
             """
             Whether enemies are dead.
             """
             return not bool(len(self.alive()))
+
 
         def xalign_position(self, enemy: RPGCharacter) -> float:
             """
@@ -100,6 +112,7 @@ init python:
 
             return xalign_position
 
+
         def turn(self) -> None:
             """
             Enemy turn.
@@ -124,11 +137,10 @@ init python:
 
             self.end_turn()
 
+
         def end_turn(self) -> None:
             """
             Enemy end turn.
             """
             for enemy in self.alive():
                 enemy.stunned = False
-
-default enemies = Enemies()

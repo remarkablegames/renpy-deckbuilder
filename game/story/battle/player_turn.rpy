@@ -1,10 +1,11 @@
 label player_turn:
 
-    $ deck.draw_cards()
+    $ deck.draw_cards(player.draw_cards)
 
     show screen player_end_turn
 
     jump player_hand
+
 
 label player_hand:
 
@@ -16,36 +17,11 @@ label player_hand:
     if enemies.dead():
         jump win
 
-    elif player.health <= 0:
+    if player.health <= 0:
         jump lose
 
     call screen player_hand
 
-init python:
-    def ondrag(drags, drop) -> None:
-        drag = drags[0]
-        card_id = drag.drag_name
-        card = deck.get_card(card_id)
-
-        if not drop:
-            drag.snap(card.get_xpos(), card.get_ypos(), 0.2)
-            return
-
-        character_id = drop.drag_name
-        if player.id == character_id:
-            card.use(player)
-        elif character_id:
-            enemy = enemies.get(character_id)
-            card.use(enemy)
-
-        # snap unused card back
-        if card in deck.hand:
-            drag.snap(card.get_xpos(), card.get_ypos(), 0.2)
-
-        renpy.jump("player_hand")
-
-    def onhovered(draggable) -> None:
-        draggable.top()
 
 screen player_hand():
     draggroup:
@@ -80,3 +56,27 @@ screen player_hand():
             frame:
                 background Solid((0, 0, 0, 0))
                 xysize 312, 235
+
+
+init python:
+    def ondrag(drags, drop) -> None:
+        drag = drags[0]
+        card_id = drag.drag_name
+        card = deck.get_card(card_id)
+
+        if not drop:
+            drag.snap(card.get_xpos(), card.get_ypos(), 0.2)
+            return
+
+        character_id = drop.drag_name
+        if player.id == character_id:
+            card.use(player)
+        elif character_id:
+            enemy = enemies.get(character_id)
+            card.use(enemy)
+
+        # snap unused card back
+        if card in deck.hand:
+            drag.snap(card.get_xpos(), card.get_ypos(), 0.2)
+
+        renpy.jump("player_hand")
