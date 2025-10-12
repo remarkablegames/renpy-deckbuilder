@@ -1,5 +1,6 @@
 {
     "0": {
+        "scene": "bg plain",
         "enemies": [
             {
                 "name": "Boy",

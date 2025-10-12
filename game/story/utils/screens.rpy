@@ -27,7 +27,7 @@ screen player_end_turn():
 screen player_deck(xalign_pos, yalign_pos):
     frame:
         padding (10, 10)
-        textbutton ("View Draw Pile" if battle else "View Deck"):
+        textbutton ("View Draw Pile" if levels.battle else "View Deck"):
             action Show("draw_pile")
         xalign xalign_pos yalign yalign_pos
 
@@ -83,7 +83,7 @@ screen draw_pile():
 
             hbox:
                 spacing 25
-                for card in deck.draw_pile if battle else deck.cards:
+                for card in deck.draw_pile if levels.battle else deck.cards:
                     use card_frame(card)
 
         null height 50

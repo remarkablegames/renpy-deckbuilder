@@ -57,7 +57,9 @@ label shop:
             jump reward
 
         "Battle":
-            $ config.menu_include_disabled = False
+            python:
+                config.menu_include_disabled = False
+                levels.next()
             hide screen player_deck
             jump battle
 

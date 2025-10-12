@@ -11,12 +11,10 @@ init python:
             self.enemies = []
             self.count = 0
 
-        def generate(self) -> None:
+        def generate(self, enemies: list) -> None:
             """
             Generate enemies.
             """
-            enemies = levels.get(wins)["enemies"]
-
             self.enemies = []
             self.count = len(enemies)
 
@@ -27,8 +25,6 @@ init python:
             """
             Show enemies.
             """
-            self.generate()
-
             for index, enemy in enumerate(self.enemies):
                 xalign_position = self.xalign_position(enemy)
                 renpy.show_screen(f"enemy_stats{index}", enemy, xalign_position)

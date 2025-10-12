@@ -1,6 +1,6 @@
 label lose:
 
-    $ battle = False
+    $ levels.end()
 
     hide screen player_end_turn
     hide screen player_stats

@@ -1,15 +1,17 @@
-init python:
-    from math import ceil
-
 default money = 0
 default loot = 0
 default interest = 0
 default rewards = 0
 default wins = 0
 
+
+init python:
+    from math import ceil
+
+
 label win:
 
-    $ battle = False
+    $ levels.end()
 
     hide screen player_end_turn
     hide screen player_stats
