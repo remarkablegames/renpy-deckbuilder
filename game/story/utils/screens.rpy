@@ -111,6 +111,6 @@ screen card_frame(card, draggable=None):
             mousearea:
                 area (0, 0, card.offset, card.height)
                 hovered [
-                    Queue("sound", "ui/mouserelease1.ogg"),
+                    Queue(MUSIC_CHANNEL_UI, "ui/mouserelease1.ogg"),
                     Function(draggable.top),
                 ]

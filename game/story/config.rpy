@@ -6,6 +6,10 @@ init python:
     LAYER_ENEMIES = "enemies"
     renpy.add_layer(LAYER_ENEMIES, below="screens")
 
+    MUSIC_CHANNEL_UI="ui"
+    renpy.music.register_channel(MUSIC_CHANNEL_UI, "sound", loop=False)
+
+
     def tooltip_custom_text_tag(tag, argument):
         return [(renpy.TEXT_TAG, "tooltip")]
 
