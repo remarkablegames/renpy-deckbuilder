@@ -128,9 +128,11 @@ init python:
                 has_actions = bool(enemy.actions)
 
                 if enemy.stunned:
-                    enemy.say()
+                    narrator(enemy.say())
+
                     if has_actions:
                         enemy.actions.append(enemy.actions.pop(0))
+
                     renpy.show(enemy.image(), layer=LAYER_ENEMIES)
                     continue
 
@@ -151,7 +153,7 @@ init python:
                         })
 
 
-                enemy.say()
+                narrator(enemy.say())
                 action = enemy.actions.pop(0)
 
                 attack = action.get("attack")

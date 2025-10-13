@@ -55,17 +55,14 @@ init python:
             return f"{self.image_name} {state}"
 
 
-        def say(self) -> None:
+        def say(self) -> str:
             """
             Get say.
             """
             if self.stunned:
-                narrator(f"{self.name} is stunned!")
-                return
+                return f"{self.name} is stunned!"
 
-            say = self.action("say", "").format(name=self.name)
-            if say:
-                narrator(say)
+            return self.action("say", "").format(name=self.name)
 
 
         def hurt(self, value: int) -> None:
