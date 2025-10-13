@@ -7,6 +7,7 @@ init python:
 
     class Levels:
         battle = False
+        enemies = []
         level = 0
         levels = load(renpy.file("story/data/levels.json"))
 
@@ -26,10 +27,20 @@ init python:
             Generate random enemies.
             """
             level = {"enemies": []}
-            names = Enemies.NAMES.copy()
+
+            if not self.enemies:
+                for value in self.levels.values():
+                    for enemy in value["enemies"]:
+                        item = (enemy["name"], enemy["image"])
+                        if item not in self.enemies:
+                            self.enemies.append(item)
+
+            enemies = self.enemies.copy()
+            renpy.random.shuffle(enemies)
             random = renpy.random.random()
 
             enemies_count = 1
+
             if self.level > 13 and random < 0.1:
                 enemies_count = 5
             if self.level > 8 and random < 0.2:
@@ -39,16 +50,18 @@ init python:
             elif self.level > 3 and random < 0.5:
                 enemies_count = 2
 
+            enemies_count = min(enemies_count, len(enemies))
+
             while enemies_count > 0:
-                enemy_name = renpy.random.choice(names)
-                names.remove(enemy_name)
+                name, image =  enemies.pop()
                 attack_min = round(self.level * (1 + renpy.random.random())) + 1
                 heal_min = round(self.level * (1 + renpy.random.random())) + 1
 
                 level["scene"] = "bg plain"
 
                 level["enemies"].append({
-                    "name": enemy_name,
+                    "name": name,
+                    "image": image,
                     "health": round(5 * (self.level + 1) * (1 + renpy.random.random())),
                     "attack_min": attack_min,
                     "attack_max": attack_min + self.level + 1,

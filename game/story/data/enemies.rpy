@@ -3,11 +3,6 @@ default enemies = Enemies()
 
 init python:
     class Enemies:
-        # Names that are mapped to their respective images.
-        # E.g., name "Boy 1" -> image "boy_1".
-        NAMES = ["Boy", "Girl", "Guy"]
-
-        # Enemy yalign position in battle.
         YALIGN = 1.0
 
 

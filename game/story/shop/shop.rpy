@@ -82,8 +82,8 @@ screen card_add(cards):
             for card in cards:
                 button:
                     action [
+                        Queue(MUSIC_CHANNEL_UI, "sound/draw.ogg"),
                         Function(deck.cards.append, card),
-                        Queue("audio", "sound/draw.ogg"),
                         Jump("shop"),
                     ]
                     hover_background colors.white
@@ -111,8 +111,8 @@ screen card_upgrade(cards, card_type, card_value):
             for card in cards:
                 button:
                     action [
+                        Queue(MUSIC_CHANNEL_UI, "sound/draw.ogg"),
                         Function(card.upgrade, card_type, card_value),
-                        Queue("audio", "sound/draw.ogg"),
                         Jump("shop"),
                     ]
                     hover_background colors.white
@@ -140,8 +140,8 @@ screen card_remove():
                 for card in deck.cards:
                     button:
                         action [
+                            Queue(MUSIC_CHANNEL_UI, "sound/draw.ogg"),
                             Function(deck.cards.remove, card),
-                            Queue("audio", "sound/draw.ogg"),
                             Jump("shop"),
                         ]
                         hover_background colors.white

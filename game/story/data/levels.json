@@ -22,9 +22,25 @@
             },
             {
                 "name": "Girl",
+                "image": "girl",
                 "health": 5,
                 "attack_min": 1,
                 "attack_max": 2,
+                "heal_min": 1,
+                "heal_max": 2
+            }
+        ]
+    },
+
+    "1": {
+        "scene": "bg plain",
+        "enemies": [
+            {
+                "name": "Guy",
+                "image": "guy",
+                "health": 10,
+                "attack_min": 2,
+                "attack_max": 4,
                 "heal_min": 1,
                 "heal_max": 2
             }
