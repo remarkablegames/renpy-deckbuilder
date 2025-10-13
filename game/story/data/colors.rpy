@@ -8,4 +8,5 @@ init -1 python:
         note = "#09c"
         white = "#fff"
 
+
     colors = Colors()

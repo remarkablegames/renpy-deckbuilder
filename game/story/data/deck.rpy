@@ -1,3 +1,6 @@
+default deck = Deck()
+
+
 init python:
     class Deck:
         def __init__(self) -> None:
@@ -17,11 +20,13 @@ init python:
             self.discard_pile = []
             self.hand = []
 
+
         def get_card(self, card_id: str) -> Card:
             """
             Get card by id.
             """
             return find(self.cards, {"id": card_id})
+
 
         def get_cards(self, count: int, upgrade_card_type="") -> Card:
             """
@@ -46,6 +51,7 @@ init python:
                 cards.append(copy.pop())
             return cards
 
+
         def draw_cards(self, count=3) -> None:
             """
             Add card(s) to hand.
@@ -62,6 +68,7 @@ init python:
                 renpy.sound.queue("sound/draw.ogg")
                 self.hand.append(self.draw_pile.pop(0))
 
+
         def discard_card(self, card: Card) -> None:
             """
             Discard card.
@@ -69,12 +76,14 @@ init python:
             self.hand.remove(card)
             self.discard_pile.append(card)
 
+
         def discard_hand(self) -> None:
             """
             Discard hand at end of turn.
             """
             while len(self.hand):
                 self.discard_pile.append(self.hand.pop(0))
+
 
         def shuffle(self) -> None:
             """
@@ -84,5 +93,3 @@ init python:
             renpy.random.shuffle(self.draw_pile)
             self.discard_pile = []
             self.hand = []
-
-default deck = Deck()

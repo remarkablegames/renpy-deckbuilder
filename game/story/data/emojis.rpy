@@ -10,4 +10,5 @@ init python:
         def get(self, key) -> str:
             return self.emojis.get(str(key))
 
-default emojis = Emojis()
+
+    emojis = Emojis()

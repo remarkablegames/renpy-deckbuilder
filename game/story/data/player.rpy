@@ -22,6 +22,7 @@ init python:
             self.cards_upgraded = 0
             self.shop_cards = 2
 
+
         def end_turn(self) -> None:
             """
             End player turn.
