@@ -2,6 +2,7 @@ transform position(xalign_position=0.5):
     xalign xalign_position
     yalign Enemies.YALIGN
 
+
 transform shake:
     ease .06 yoffset 24
     ease .06 yoffset -24
