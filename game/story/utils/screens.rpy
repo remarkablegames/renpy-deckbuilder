@@ -46,9 +46,19 @@ screen tooltip():
 
 screen enemy_stats(enemy, xalign_pos):
     frame:
+        background Solid((0, 0, 0, 50))
         xalign xalign_pos
+
         vbox:
             use stat("Health", enemy.health, enemy.health_max)
+
+            button:
+                action NullAction()
+                text "[enemy.name]"
+                tooltip (enemy.say() or "...")
+                xalign 0.5
+
+    use tooltip
 
 
 screen enemy_stats0(enemy, xalign_pos):
