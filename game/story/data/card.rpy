@@ -3,11 +3,11 @@ init python:
 
 
     class Card:
-        label_description_yalign = 0.5
-        label_name_ypos = 5
-        width = 250
-        height = 350
-        offset = 80
+        LABEL_DESCRIPTION_YPOS = 100
+        LABEL_NAME_YPOS = 5
+        WIDTH = 250
+        HEIGHT = 350
+        OFFSET = 80
 
 
         def __init__(self, **kwargs) -> None:
@@ -19,9 +19,6 @@ init python:
             image = kwargs.get("image", "card")
             self.image = f"cards/{image}.png"
             self.name = image.capitalize()
-
-            if renpy.variant("mobile") or renpy.variant("touch"):
-                self.label_description_ypos = 0.5
 
 
         def label_size(self, label: str) -> str:
@@ -138,8 +135,8 @@ init python:
             Calculate x-position.
             """
             x = config.screen_width / 2
-            x -= (self.width + self.offset * (len(deck.hand) - 1)) / 2
-            x += deck.hand.index(self) * self.offset
+            x -= (self.WIDTH + self.OFFSET * (len(deck.hand) - 1)) / 2
+            x += deck.hand.index(self) * self.OFFSET
             return int(x)
 
 
@@ -147,7 +144,7 @@ init python:
             """
             Calculate y-position.
             """
-            return config.screen_height - self.height
+            return config.screen_height - self.HEIGHT
 
 
         def get_pos(self):
