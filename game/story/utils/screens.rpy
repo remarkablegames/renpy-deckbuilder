@@ -106,7 +106,10 @@ screen draw_pile():
 
 screen card_frame(card, draggable=None):
     frame:
-        background Frame(card.image)
+        background Frame("cards/card.png")
+        add card.image:
+            xpos -5 ypos -5
+            xysize card.WIDTH, card.HEIGHT
         label card.label_name():
             xalign 0.5
             ypos card.LABEL_NAME_YPOS

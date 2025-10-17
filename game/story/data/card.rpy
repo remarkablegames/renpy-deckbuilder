@@ -16,9 +16,8 @@ init python:
             self.action = kwargs.get("action", {})
             self.value = kwargs.get("value", 0)
 
-            image = kwargs.get("image", "card")
-            self.image = f"cards/{image}.png"
-            self.name = image.capitalize()
+            self.image = f"cards/{kwargs.get('image', 'transparent')}.png"
+            self.name = kwargs.get("name", "")
 
 
         def label_size(self, label: str) -> str:
