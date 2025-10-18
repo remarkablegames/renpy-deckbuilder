@@ -11,11 +11,11 @@
                         "say": "{name} is thinking..."
                     },
                     {
-                        "say": "{name} dealt 1 damage to you.",
+                        "say": "{name} deals 1 damage.",
                         "attack": 1
                     },
                     {
-                        "say": "{name} healed 1 health.",
+                        "say": "{name} heals 1 health.",
                         "heal": 1
                     }
                 ]
