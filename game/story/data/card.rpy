@@ -191,7 +191,7 @@ init python:
                                 target.stunned = True
                             renpy.show(target.image(), at_list=[shake], layer=LAYER_ENEMIES)
                         else:
-                            renpy.invoke_in_new_context(renpy.with_statement, vpunch)
+                            renpy.invoke_in_thread(renpy.with_statement, vpunch)
 
             deck.discard_card(self)
 
