@@ -46,19 +46,18 @@ screen player_hand():
                 droppable False
                 drag_raise False
                 pos card.get_pos()
-
                 use card_frame(card, draggable)
 
         drag:
             drag_name player.id
             draggable False
             droppable True
-            selected_idle_child Solid((255, 255, 255, 100), xsize=312, ysize=235)
+            selected_idle_child Solid((255, 255, 255, 100), xsize=player.XSIZE, ysize=player.YSIZE)
             yalign 1.0
 
             frame:
                 background Solid((0, 0, 0, 0))
-                xysize 312, 235
+                xysize player.XSIZE, player.YSIZE
 
 
 init python:
