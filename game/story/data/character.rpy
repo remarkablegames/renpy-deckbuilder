@@ -6,13 +6,13 @@ init python:
         def __init__(self, **kwargs) -> None:
             self.id = str(uuid4())
             self.name = kwargs.get("name", "")
-            self.image_name = kwargs.get("image", self.name.lower())
 
-            self.height = 1000
-            if self.image_name == "girl":
-                self.width = 228
-            elif self.image_name in ["boy", "guy"]:
-                self.width = 211
+            image = kwargs.get("image", self.name.lower())
+            if image:
+                self.image_name = image
+                width, height = renpy.image_size(f"images/enemies/{image} hover.png")
+                self.width = width
+                self.height = height
 
             self.health = self.health_max = kwargs.get("health", 0)
             self.energy = self.energy_max = kwargs.get("energy", 0)

@@ -32,6 +32,7 @@ screen player_hand():
                     drag_name enemy.id
                     draggable False
                     droppable True
+                    focus_mask True
                     idle_child Solid((0, 0, 0, 0), xsize=enemy.width, ysize=enemy.height)
                     selected_idle_child enemy.image("hover")
                     xalign enemies.xalign_position(enemy)

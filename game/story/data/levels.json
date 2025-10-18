@@ -37,7 +37,7 @@
         "enemies": [
             {
                 "name": "Guy",
-                "image": "guy",
+                "image": "boy",
                 "health": 10,
                 "attack_min": 2,
                 "attack_max": 4,
