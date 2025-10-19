@@ -4,7 +4,7 @@ label reward:
         jump shop
 
     $ reward_attack = renpy.random.randint(1, 2 + wins // 2)
-    $ reward_heal = renpy.random.randint(1, 3 + wins // 2)
+    $ reward_heal = renpy.random.randint(1, 3 + wins // 2) * 2
 
     menu:
         "Claim your reward (remaining: [rewards]):"
@@ -13,9 +13,9 @@ label reward:
             $ money -= wins // 2
             jump reward
 
-        "Increase max health by {color=[colors.heal]}+[reward_heal * 2]" if renpy.random.random() < 0.5:
-            $ player.health += reward_heal * 2
-            $ player.health_max += reward_heal * 2
+        "Increase max health by {color=[colors.heal]}+[reward_heal]" if renpy.random.random() < 0.5:
+            $ player.health += reward_heal
+            $ player.health_max += reward_heal
 
         "Increase max energy by {color=[colors.energy]}+1" if renpy.random.random() < 0.1:
             $ player.energy_max += 1

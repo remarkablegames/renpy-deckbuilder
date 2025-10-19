@@ -204,14 +204,49 @@ init python:
             cards = []
 
             for _ in range(count):
-                card = Card(
-                    cost=renpy.random.randint(1, 3),
-                    action={
-                        renpy.random.choice(["attack", "draw", "energy", "heal"]): {
-                            "value": renpy.random.randint(1, 6)
+                card_type = renpy.random.choice(
+                    ["attack"] +
+                    ["draw"] +
+                    ["energy"] * (1 if wins > 1 else 0) +
+                    ["heal"] +
+                    []
+                )
+
+                card = {
+                    "action": {
+                        card_type: {
+                            "value": renpy.random.randint(wins, max(3, wins)),
                         },
                     },
-                )
-                cards.append(card)
+                    "cost": renpy.random.randint(1, 1 if wins < 5 else 2),
+                }
+
+                if card_type == "attack":
+                    card["name"] = "Attack"
+                    if renpy.random.random() < 0.3:
+                        card["action"]["attack"]["stun"] = True
+                        card["cost"] += 1
+                    elif renpy.random.random() < 0.1:
+                        card["action"]["attack"]["all"] = True
+                        card["cost"] += 1
+
+                elif card_type == "draw":
+                    card["name"] = "Draw"
+                    card["action"]["draw"]["value"] = renpy.random.randint(2, 3) if wins < 5 else renpy.random.randint(3, 6)
+
+                elif card_type == "energy":
+                    card["name"] = "Energy"
+                    card["action"]["energy"] = {"value": renpy.random.randint(2, 3)}
+                    card["cost"] = renpy.random.randint(1, card["action"]["energy"]["value"] - 1)
+
+                elif card_type == "heal":
+                    card["name"] = "Heal"
+                    if renpy.random.random() < 0.5:
+                        card["cost"] += 1
+
+                if card_type != "draw" and renpy.random.random() < 0.2:
+                    card["action"]["draw"] = {"value": renpy.random.randint(0, 2)}
+
+                cards.append(Card(**card))
 
             return cards
