@@ -19,6 +19,7 @@ label shop:
                 config.menu_include_disabled = False
                 money -= cost_card_buy
                 cards = Card.generate(player.shop_cards)
+
             call screen card_add(cards)
 
         "Upgrade a card (-$[cost_card_upgrade])
@@ -39,6 +40,7 @@ label shop:
                 )
                 card_value = renpy.random.randint(1, 3)
                 cards = deck.get_cards(player.shop_cards, card_type)
+
             call screen card_upgrade(cards, card_type, card_value)
 
         "Remove a card (-$[cost_card_remove])
@@ -46,6 +48,7 @@ label shop:
             python:
                 config.menu_include_disabled = False
                 money -= cost_card_remove
+
             call screen card_remove
 
         "Get reward (-$[cost_reward])
@@ -54,13 +57,16 @@ label shop:
                 config.menu_include_disabled = False
                 money -= cost_reward
                 rewards += 1
+
             jump reward
 
         "Battle":
             python:
                 config.menu_include_disabled = False
                 levels.next()
+
             hide screen player_deck
+
             jump battle
 
 

@@ -21,6 +21,8 @@ label win:
     hide screen enemy_stats2
     hide screen enemy_stats3
 
+    show screen player_money
+
     "You won the battle!"
 
     $ wins += 1

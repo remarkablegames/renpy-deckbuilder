@@ -7,7 +7,7 @@ default player = Player(
 init python:
     class Player(RPGCharacter):
         XSIZE = 312
-        YSIZE = 235
+        YSIZE = 180
 
 
         def __init__(self, **kwargs) -> None:

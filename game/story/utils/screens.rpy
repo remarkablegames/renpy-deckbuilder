@@ -4,6 +4,13 @@ screen stat(name, current, max):
         xsize 300
 
 
+screen player_money():
+    frame:
+        background Solid((0, 0, 0, 100))
+        text "Money: $[money]"
+        xpos (40 if renpy.variant("web") else 0)
+
+
 screen player_stats():
     vbox:
         yalign 1.0
@@ -13,8 +20,6 @@ screen player_stats():
                 use stat("Health", player.health, player.health_max)
                 null height 15
                 use stat("Energy", player.energy, player.energy_max)
-                null height 15
-                text "Money: $[money]"
 
 
 screen player_end_turn():
