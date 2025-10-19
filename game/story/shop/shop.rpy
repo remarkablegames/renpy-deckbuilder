@@ -67,8 +67,8 @@ label shop:
             python:
                 config.menu_include_disabled = False
                 money -= cost_reward
-                player.rewards_bought += 1
                 rewards += 1
+                player.rewards_bought += 1
 
             jump reward
 
