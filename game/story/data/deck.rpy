@@ -56,6 +56,9 @@ init python:
             """
             Add card(s) to hand.
             """
+            if not count:
+                return
+
             for _ in range(count):
                 if not len(self.draw_pile):
                     self.draw_pile = self.discard_pile.copy()
@@ -63,7 +66,7 @@ init python:
                     renpy.random.shuffle(self.draw_pile)
 
                     if not len(self.draw_pile):
-                        return narrator("No more cards to draw.")
+                        return
 
                 renpy.sound.queue("sound/draw.ogg")
                 self.hand.append(self.draw_pile.pop(0))
