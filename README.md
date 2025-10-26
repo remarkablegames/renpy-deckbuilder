@@ -10,7 +10,7 @@
 
 🃏 Ren'Py Deckbuilder Template.
 
-Play the game on:
+Play the game:
 
 - [remarkablegames](https://remarkablegames.org/renpy-deckbuilder)
 
