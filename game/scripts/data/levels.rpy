@@ -9,7 +9,7 @@ init python:
         battle = False
         enemies = []
         level = 0
-        levels = load(renpy.file("story/data/levels.json"))
+        levels = load(renpy.file("scripts/data/levels.json"))
 
 
         def get(self) -> dict:
