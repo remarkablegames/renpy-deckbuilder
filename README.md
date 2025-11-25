@@ -4,7 +4,7 @@
 
 # Ren'Py Deckbuilder
 
-![release](https://img.shields.io/github/v/release/remarkablegames/renpy-deckbuilder)
+[![release](https://img.shields.io/github/v/release/remarkablegames/renpy-deckbuilder)](https://github.com/remarkablegames/renpy-deckbuilder/releases)
 [![build](https://github.com/remarkablegames/renpy-deckbuilder/actions/workflows/build.yml/badge.svg)](https://github.com/remarkablegames/renpy-deckbuilder/actions/workflows/build.yml)
 [![lint](https://github.com/remarkablegames/renpy-deckbuilder/actions/workflows/lint.yml/badge.svg)](https://github.com/remarkablegames/renpy-deckbuilder/actions/workflows/lint.yml)
 
