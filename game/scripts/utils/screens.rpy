@@ -44,6 +44,7 @@ screen player_deck(xalign_pos, yalign_pos):
 screen tooltip():
     $ tooltip = GetTooltip()
     if tooltip:
+        # Position the tooltip relative to the captured focus
         nearrect:
             focus "tooltip"
             prefer_top True
