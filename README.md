@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/remarkablegames/renpy-deckbuilder/master/game/gui/window_icon.png" alt="Ren'Py Deckbuilder">
+  <img src="web-icon.png" width="250" alt="Ren'Py Deckbuilder">
 </p>
 
 # Ren'Py Deckbuilder
@@ -12,7 +12,7 @@
 
 Play the game:
 
-- [remarkablegames](https://remarkablegames.org/renpy-deckbuilder)
+- [remarkablegames](https://remarkablegames.org/renpy-deckbuilder/)
 
 Or download:
 
