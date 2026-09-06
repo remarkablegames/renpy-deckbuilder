@@ -10,15 +10,15 @@
 
 🃏 Ren'Py Deckbuilder Template.
 
-Play the game:
+Play in your browser:
 
 - [remarkablegames](https://remarkablegames.org/renpy-deckbuilder/)
 
-Or download:
+Or download for desktop:
 
-- [Windows](https://github.com/remarkablegames/renpy-rpg/releases/latest/download/win.zip)
-- [Mac](https://github.com/remarkablegames/renpy-rpg/releases/latest/download/mac.zip)
-- [Linux](https://github.com/remarkablegames/renpy-rpg/releases/latest/download/pc.zip)
+- [Windows](https://github.com/remarkablegames/renpy-deckbuilder/releases/latest/download/win.zip)
+- [Mac](https://github.com/remarkablegames/renpy-deckbuilder/releases/latest/download/mac.zip)
+- [Linux](https://github.com/remarkablegames/renpy-deckbuilder/releases/latest/download/pc.zip)
 
 ## Credits
 
@@ -123,6 +123,10 @@ Lint the game:
 ```sh
 renpy game lint
 ```
+
+## Notes
+
+- `game/screens.rpy`: `quick_menu` is disabled
 
 ## License
 
