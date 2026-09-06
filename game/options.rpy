@@ -110,6 +110,15 @@ define config.end_game_transition = None
 define config.window = "auto"
 
 
+## Game menu ####################################################################
+##
+## This controls which screen is shown when the game menu is accessed (e.g., by
+## pressing Esc or right-click). By default, it shows the save screen. Change
+## this to show adifferent screen instead.
+
+define config.game_menu_action = ShowMenu("preferences")
+
+
 ## Transitions used to show and hide the dialogue window
 
 define config.window_show_transition = Dissolve(.2)
