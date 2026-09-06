@@ -116,7 +116,7 @@ screen draw_pile():
 
 screen card_frame(card, draggable=None):
     frame:
-        background Frame("cards/card.png")
+        background Frame(card.background)
         add card.image:
             xpos -5 ypos -5
             xysize card.WIDTH, card.HEIGHT
@@ -137,3 +137,10 @@ screen card_frame(card, draggable=None):
                     Queue(MUSIC_CHANNEL_UI, "ui/mouserelease1.ogg"),
                     Function(draggable.top),
                 ]
+
+
+screen card(card, xalign_pos=0.5, yalign_pos=0.5):
+    vbox:
+        xalign xalign_pos
+        yalign yalign_pos
+        use card_frame(card)

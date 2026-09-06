@@ -18,6 +18,7 @@ init python:
 
             self.image = f"cards/{kwargs.get('image', 'transparent')}.png"
             self.name = kwargs.get("name", "")
+            self.background = "cards/card.png"
 
 
         def label_size(self, label: str) -> str:
