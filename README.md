@@ -126,9 +126,14 @@ renpy game lint
 
 ## Notes
 
-- `game/options.rpy`: `game_menu_action` set to "preferences"
-- `game/screens.rpy`: "Save" and "Load" are commented out
-- `game/screens.rpy`: `quick_menu` is disabled
+`game/options.rpy`:
+
+- `game_menu_action` set to "preferences"
+
+`game/screens.rpy`:
+
+- "Save" and "Load" are commented out
+- `quick_menu` is disabled
 
 ## License
 
