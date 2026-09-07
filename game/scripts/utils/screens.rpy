@@ -32,6 +32,26 @@ screen player_end_turn():
             action Function(player.end_turn)
 
 
+screen player_end_tutorial():
+    frame:
+        padding (10, 10)
+        xalign 1.0
+        yalign 1.0
+
+        textbutton "End Tutorial":
+            action [
+                Function(renpy.hide, "boy"),
+                Function(renpy.hide, "girl"),
+                Hide("player_end_tutorial"),
+                Hide("player_money"),
+                Hide("player_hand"),
+                Hide("player_stats"),
+                Hide("enemy_stats0"),
+                Hide("enemy_stats1"),
+                Jump("start"),
+            ]
+
+
 screen player_deck(xalign_pos, yalign_pos):
     frame:
         padding (10, 10)
